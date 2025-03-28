@@ -194,6 +194,12 @@ export default function TransfersPage() {
             status: "completed",
             userId: state.user?.uid ?? "",
             createdAt: new Date().toLocaleDateString(),
+            recipient: recipientName,
+            bank: recipientBank,
+            accountNumber: accountNumber,
+            routingNumber: routingNumber,
+            bankAddress: bankAddress,
+            transferType: transferType,
         };
 
         await createTransaction(state.user?.uid ?? "", transferDetails);
