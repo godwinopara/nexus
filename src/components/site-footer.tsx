@@ -4,7 +4,7 @@ import { FiFacebook, FiInstagram, FiTwitter, FiLinkedin } from "react-icons/fi";
 export function SiteFooter() {
     return (
         <footer className="bg-white border-t border-gray-200 py-12 md:py-16">
-            <div className="container mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            <div className="container px-6 xl:px-10 mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-4">
                 <div className="space-y-4">
                     <h3 className="text-lg font-bold text-green-600">HSGB</h3>
                     <p className="text-sm text-gray-500">

@@ -16,6 +16,7 @@ import {
     Settings,
     Users,
     FileText,
+    HandCoins,
     // Shield,
 } from "lucide-react";
 
@@ -40,6 +41,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     const [session, setSession] = useState<Session | null>(null);
     const pathname = usePathname();
     const router = useRouter();
+
+    // Close mobile nav when pathname changes
+    useEffect(() => {
+        setIsMobileNavOpen(false);
+    }, [pathname]);
 
     // Check if we're in the admin dashboard
     const isAdminDashboard = pathname?.includes("/dashboard/admin") || false;
@@ -81,6 +87,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         { href: "/dashboard/user/transactions", label: "Transactions", icon: LineChart },
         { href: "/dashboard/user/accounts", label: "Accounts", icon: CreditCard },
         { href: "/dashboard/user/transfers", label: "Transfers & Payments", icon: Send },
+        { href: "/dashboard/user/loan", label: "Apply For Loan", icon: HandCoins },
+        { href: "/dashboard/user/card", label: "Enrol For Card", icon: CreditCard },
         { href: "/dashboard/user/settings", label: "Settings", icon: Settings },
     ];
 
@@ -140,21 +148,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             {/* Main content wrapper */}
             <div className="flex flex-1 flex-col md:pl-64">
                 {/* Header */}
-                <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-white px-4 md:px-6">
+                <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-white  px-4 md:px-6">
                     <Sheet open={isMobileNavOpen} onOpenChange={setIsMobileNavOpen}>
                         <SheetTrigger asChild>
                             <Button variant="ghost" size="icon" className="md:hidden">
-                                <Menu className="h-5 w-5" />
+                                <Menu className="h-8 w-8" />
                                 <span className="sr-only">Toggle navigation menu</span>
                             </Button>
                         </SheetTrigger>
-                        <SheetContent side="left" className="w-72">
+                        <SheetContent side="left" className="w-72 pl-7 py-10">
                             <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-                            <nav className="grid gap-6 text-lg font-medium">
+                            <nav className="grid gap-6 py-6 text-lg font-medium">
                                 <Link
                                     href="/"
                                     className="flex items-center gap-2 text-lg font-semibold"
-                                    onClick={() => setIsMobileNavOpen(false)}
                                 >
                                     <span className="font-bold text-green-600">HSGB</span>
                                 </Link>
@@ -165,18 +172,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                         className={`flex items-center gap-2 ${
                                             isActive(item.href) ? "text-green-600" : "text-gray-600"
                                         }`}
-                                        onClick={() => setIsMobileNavOpen(false)}
                                     >
                                         <item.icon className="h-5 w-5" />
                                         {item.label}
                                     </Link>
                                 ))}
                                 <button
-                                    className="flex items-center gap-2 text-gray-600"
-                                    onClick={() => {
-                                        setIsMobileNavOpen(false);
-                                        handleLogout();
-                                    }}
+                                    className="flex items-center gap-2 mt-20 text-gray-600"
+                                    onClick={handleLogout}
                                 >
                                     <LogOut className="h-5 w-5" />
                                     Log Out
@@ -213,7 +216,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                             <Bell className="h-5 w-5 text-gray-600" />
                             <span className="sr-only">Notifications</span>
                             <Badge className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 text-xs bg-green-600">
-                                3
+                                0
                             </Badge>
                         </Button>
                         <div className="relative">

@@ -164,6 +164,7 @@ export default function TransfersPage() {
             if (verifyOTP(otp, generatedOTP)) {
                 setShowSuccessModal(true);
                 setGeneratedOTP(generateOTP());
+                updateTransferRecord();
             } else {
                 toast.error("Invalid OTP", {
                     duration: 3000,
@@ -182,9 +183,7 @@ export default function TransfersPage() {
         }, 3000);
     };
 
-    const handleFinish = async () => {
-        // Close success modal and reset form
-
+    const updateTransferRecord = async () => {
         const transferDetails: ITransaction = {
             date: new Date().toLocaleDateString(),
             type: "transfer",
@@ -204,6 +203,10 @@ export default function TransfersPage() {
             "transfer",
             parseFloat(transferAmount)
         );
+    };
+
+    const handleFinish = async () => {
+        // Close success modal and reset form
 
         setShowSuccessModal(false);
         setTransferAmount("");

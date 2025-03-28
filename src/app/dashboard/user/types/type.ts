@@ -9,6 +9,12 @@ export interface ITransaction {
     transactionId: string;
     account: string;
     createdAt: string;
+    recipient: string;
+    bank: string;
+    accountNumber: string;
+    routingNumber: string;
+    bankAddress: string;
+    transferType: string;
 }
 
 export interface IAccount {

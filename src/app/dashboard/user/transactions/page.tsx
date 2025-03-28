@@ -55,7 +55,7 @@ export default function TransactionsPage() {
         const matchesCategory = selectedCategory === "all" || transaction.type === selectedCategory;
 
         // Time range filter (simplified for demo)
-        const matchesTimeRange = true; // In a real app, we would filter by date
+        const matchesTimeRange = true;
 
         return matchesSearch && matchesAccount && matchesCategory && matchesTimeRange;
     });
@@ -74,7 +74,7 @@ export default function TransactionsPage() {
                     <CardDescription>Narrow down your transaction history</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                         <div className="space-y-2">
                             <label htmlFor="search" className="text-sm font-medium">
                                 Search
@@ -151,7 +151,7 @@ export default function TransactionsPage() {
 
             {/* Transactions Table */}
             <Card className="border-0 shadow-sm">
-                <CardHeader className="flex flex-row items-center justify-between border-b border-gray-100 pb-3">
+                <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-gray-100 pb-3">
                     <div>
                         <CardTitle className="text-lg font-medium">Transaction History</CardTitle>
                         <CardDescription>
@@ -168,147 +168,154 @@ export default function TransactionsPage() {
                     </Button>
                 </CardHeader>
                 <CardContent className="p-0">
-                    <Table>
-                        <TableHeader>
-                            <TableRow className="hover:bg-transparent border-b border-gray-100">
-                                <TableHead className="text-gray-500 font-medium">Date</TableHead>
-                                <TableHead className="text-gray-500 font-medium">
-                                    Transaction ID
-                                </TableHead>
-                                <TableHead className="text-gray-500 font-medium">
-                                    Description
-                                </TableHead>
-                                <TableHead className="text-gray-500 font-medium">
-                                    Transaction Type
-                                </TableHead>
-                                <TableHead className="text-gray-500 font-medium">Account</TableHead>
-                                <TableHead className="text-gray-500 font-medium text-right">
-                                    Amount
-                                </TableHead>
-                                <TableHead className="text-gray-500 font-medium">Status</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {filteredTransactions.map((transaction) => (
-                                <TableRow
-                                    key={transaction.transactionId}
-                                    className="cursor-pointer hover:bg-gray-50/50 transition-colors"
-                                    onClick={() =>
-                                        setSelectedTransaction(
-                                            transaction.transactionId === selectedTransaction
-                                                ? null
-                                                : transaction.transactionId
-                                        )
-                                    }
-                                >
-                                    <TableCell className="font-medium text-gray-900">
-                                        {transaction.date}
-                                    </TableCell>
-                                    <TableCell className="text-gray-900">
-                                        {transaction.transactionId}
-                                    </TableCell>
-                                    <TableCell className="text-gray-900">
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
-                                                {transaction.type === "deposit" ? (
-                                                    <svg
-                                                        className="w-4 h-4 text-green-500"
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        viewBox="0 0 24 24"
-                                                    >
-                                                        <path
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                            strokeWidth={2}
-                                                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                                        />
-                                                    </svg>
-                                                ) : (
-                                                    <svg
-                                                        className="w-4 h-4 text-gray-500"
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        viewBox="0 0 24 24"
-                                                    >
-                                                        <path
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                            strokeWidth={2}
-                                                            d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
-                                                        />
-                                                    </svg>
-                                                )}
+                    <div className="overflow-x-auto">
+                        <Table>
+                            <TableHeader>
+                                <TableRow className="hover:bg-transparent border-b border-gray-100">
+                                    <TableHead className="text-gray-500 font-medium">S/N</TableHead>
+                                    <TableHead className="text-gray-500 font-medium hidden sm:table-cell">
+                                        Transaction ID
+                                    </TableHead>
+                                    <TableHead className="text-gray-500 font-medium">
+                                        Description
+                                    </TableHead>
+                                    <TableHead className="text-gray-500 font-medium hidden sm:table-cell">
+                                        Transaction Type
+                                    </TableHead>
+                                    <TableHead className="text-gray-500 font-medium hidden sm:table-cell">
+                                        Account
+                                    </TableHead>
+                                    <TableHead className="text-gray-500 font-medium text-right">
+                                        Amount
+                                    </TableHead>
+                                    <TableHead className="text-gray-500 font-medium">
+                                        Status
+                                    </TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {filteredTransactions.map((transaction, index) => (
+                                    <TableRow
+                                        key={transaction.transactionId}
+                                        className="cursor-pointer hover:bg-gray-50/50 transition-colors"
+                                        onClick={() =>
+                                            setSelectedTransaction(
+                                                transaction.transactionId === selectedTransaction
+                                                    ? null
+                                                    : transaction.transactionId
+                                            )
+                                        }
+                                    >
+                                        <TableCell className="font-medium text-gray-900">
+                                            {index + 1}
+                                        </TableCell>
+                                        <TableCell className="text-gray-900 hidden sm:table-cell">
+                                            {transaction.transactionId.slice(0, 8)}...
+                                        </TableCell>
+                                        <TableCell className="text-gray-900">
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
+                                                    {transaction.type === "deposit" ? (
+                                                        <svg
+                                                            className="w-4 h-4 text-green-500"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            viewBox="0 0 24 24"
+                                                        >
+                                                            <path
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                                strokeWidth={2}
+                                                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                                            />
+                                                        </svg>
+                                                    ) : (
+                                                        <svg
+                                                            className="w-4 h-4 text-gray-500"
+                                                            fill="none"
+                                                            stroke="currentColor"
+                                                            viewBox="0 0 24 24"
+                                                        >
+                                                            <path
+                                                                strokeLinecap="round"
+                                                                strokeLinejoin="round"
+                                                                strokeWidth={2}
+                                                                d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
+                                                            />
+                                                        </svg>
+                                                    )}
+                                                </div>
+                                                <div>
+                                                    <span className="block">
+                                                        {transaction.description}
+                                                    </span>
+                                                    <span className="text-sm text-gray-500 sm:hidden">
+                                                        {transaction.type} • {transaction.account}
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <span>{transaction.description}</span>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800">
-                                            {transaction.type}
-                                        </span>
-                                    </TableCell>
-                                    <TableCell className="text-gray-600">
-                                        {transaction.account}
-                                    </TableCell>
-                                    <TableCell
-                                        className={`text-right font-medium ${
-                                            transaction.amount > 0
-                                                ? "text-green-600"
-                                                : "text-gray-900"
-                                        }`}
-                                    >
-                                        <div
-                                            className={`font-medium ${
-                                                transaction.type === "deposit"
-                                                    ? "text-green-600"
-                                                    : "text-red-600"
-                                            }`}
-                                        >
-                                            {transaction.type === "deposit" ? "+" : "-"}$
-                                            {transaction.amount.toLocaleString("en-US", {
-                                                minimumFractionDigits: 2,
-                                            })}
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>
-                                        <span className="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                                            {transaction.status}
-                                        </span>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                            {filteredTransactions.length === 0 && (
-                                <TableRow>
-                                    <TableCell
-                                        colSpan={6}
-                                        className="h-24 text-center text-gray-500"
-                                    >
-                                        <div className="flex flex-col items-center justify-center gap-2">
-                                            <svg
-                                                className="w-8 h-8 text-gray-400"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                viewBox="0 0 24 24"
+                                        </TableCell>
+                                        <TableCell className="hidden sm:table-cell">
+                                            <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800">
+                                                {transaction.type}
+                                            </span>
+                                        </TableCell>
+                                        <TableCell className="text-gray-600 hidden sm:table-cell">
+                                            {transaction.account}
+                                        </TableCell>
+                                        <TableCell className="text-right">
+                                            <div
+                                                className={`font-medium ${
+                                                    transaction.type === "deposit"
+                                                        ? "text-green-600"
+                                                        : "text-red-600"
+                                                }`}
                                             >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth={2}
-                                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
-                                                />
-                                            </svg>
-                                            <p>No transactions found</p>
-                                        </div>
-                                    </TableCell>
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
+                                                {transaction.type === "deposit" ? "+" : "-"}$
+                                                {transaction.amount.toLocaleString("en-US", {
+                                                    minimumFractionDigits: 2,
+                                                })}
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <span className="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                                                {transaction.status}
+                                            </span>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                                {filteredTransactions.length === 0 && (
+                                    <TableRow>
+                                        <TableCell
+                                            colSpan={7}
+                                            className="h-24 text-center text-gray-500"
+                                        >
+                                            <div className="flex flex-col items-center justify-center gap-2">
+                                                <svg
+                                                    className="w-8 h-8 text-gray-400"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth={2}
+                                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                                                    />
+                                                </svg>
+                                                <p>No transactions found</p>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </div>
                 </CardContent>
             </Card>
 
-            {/* Transaction Details (shown when a transaction is selected) */}
+            {/* Transaction Details */}
             {selectedTransaction && (
                 <Card className="border-0 shadow-sm">
                     <CardHeader className="pb-3">
@@ -321,12 +328,12 @@ export default function TransactionsPage() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div className="grid gap-4 md:grid-cols-2">
+                        <div className="grid gap-4 sm:grid-cols-2">
                             <div>
                                 <h3 className="text-sm font-medium text-gray-500 mb-1">
                                     Transaction ID
                                 </h3>
-                                <p>{selectedTransaction}</p>
+                                <p className="break-all">{selectedTransaction}</p>
                             </div>
                             <div>
                                 <h3 className="text-sm font-medium text-gray-500 mb-1">
@@ -395,7 +402,7 @@ export default function TransactionsPage() {
                                     }
                                 </p>
                             </div>
-                            <div>
+                            <div className="sm:col-span-2">
                                 <h3 className="text-sm font-medium text-gray-500 mb-1">
                                     Description
                                 </h3>

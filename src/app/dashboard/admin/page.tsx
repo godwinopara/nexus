@@ -9,8 +9,6 @@ import {
     Shield,
     User,
     Users,
-    TrendingUp,
-    Clock,
     ArrowUp,
     ArrowDown,
     Activity,
@@ -180,7 +178,7 @@ export default function AdminDashboard() {
                     </Card>
 
                     {/* Quick Links and Alerts */}
-                    <div className="grid gap-4 md:grid-cols-2">
+                    <div className="grid gap-4">
                         {/* Quick Links */}
                         <Card className="border-0 shadow-sm">
                             <CardHeader className="border-b border-gray-100 pb-3">
@@ -224,55 +222,6 @@ export default function AdminDashboard() {
                                         </div>
                                         <ArrowUpDown className="h-4 w-4 text-gray-400" />
                                     </Link>
-                                </div>
-                            </CardContent>
-                        </Card>
-
-                        {/* Alerts */}
-                        <Card className="border-0 shadow-sm">
-                            <CardHeader className="border-b border-gray-100 pb-3">
-                                <CardTitle className="text-lg font-medium">System Alerts</CardTitle>
-                            </CardHeader>
-                            <CardContent className="p-0">
-                                <div className="divide-y divide-gray-100">
-                                    <div className="flex items-start p-4">
-                                        <Clock className="h-5 w-5 text-amber-600 mr-3 mt-0.5 flex-shrink-0" />
-                                        <div>
-                                            <p className="font-medium text-gray-800">
-                                                KYC Verifications Pending
-                                            </p>
-                                            <p className="text-sm text-gray-600">
-                                                {
-                                                    users.filter((u) => u.kycStatus === "pending")
-                                                        .length
-                                                }{" "}
-                                                users awaiting verification
-                                            </p>
-                                            <Button
-                                                variant="link"
-                                                className="p-0 h-auto text-amber-600"
-                                            >
-                                                Process Queue
-                                            </Button>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-start p-4">
-                                        <TrendingUp className="h-5 w-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" />
-                                        <div>
-                                            <p className="font-medium text-gray-800">
-                                                Unusual Activity Detected
-                                            </p>
-                                            <p className="text-sm text-gray-600">
-                                                Spike in login attempts from new locations
-                                            </p>
-                                            <Button
-                                                variant="link"
-                                                className="p-0 h-auto text-green-600"
-                                            >
-                                                Investigate
-                                            </Button>
-                                        </div>
-                                    </div>
                                 </div>
                             </CardContent>
                         </Card>

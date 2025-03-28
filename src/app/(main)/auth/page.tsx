@@ -94,13 +94,13 @@ export default function AuthPage() {
                     router.push("/dashboard/admin");
                 }
             } else {
-                throw new Error("Invalid email or password. Please try again.");
+                throw new Error("Invalid Account ID or Password. Please try again.");
             }
         } catch (error) {
             const firebaseError = error as FirebaseError;
             toast.error("Login Failed", {
                 description:
-                    firebaseError.message || "Invalid email or password. Please try again.",
+                    firebaseError.message || "Invalid Account ID or Password. Please try again.",
                 position: "top-right",
                 style: {
                     background: "#fff",

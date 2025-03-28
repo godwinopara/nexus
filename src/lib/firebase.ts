@@ -1,5 +1,5 @@
 import { initializeApp, getApps } from "firebase/app";
-import { getAuth, onAuthStateChanged, User } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -15,14 +15,5 @@ const firebaseConfig = {
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 const auth = getAuth(app);
 const db = getFirestore(app);
-
-// Helper function to generate a random account number
-
-// User data functions
-
-// Auth state observer
-export function onAuthStateChange(callback: (user: User | null) => void) {
-    return onAuthStateChanged(auth, callback);
-}
 
 export { auth, db };

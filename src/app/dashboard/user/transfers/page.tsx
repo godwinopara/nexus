@@ -177,8 +177,7 @@ export default function TransfersPage() {
         setShowOtpModal(true);
 
         if (state.user?.email) {
-            // sendOTP(state.user?.email, generatedOTP);
-            console.log(generatedOTP, "generatedOTP");
+            sendOTP(state.user?.email, generatedOTP);
             toast.success("OTP sent to your email", {
                 duration: 3000,
                 position: "top-right",
@@ -203,6 +202,8 @@ export default function TransfersPage() {
             if (verifyOTP(otp, generatedOTP)) {
                 setShowSuccessModal(true);
                 setGeneratedOTP(generateOTP());
+
+                sendTransactionData();
             } else {
                 toast.error("Invalid OTP", {
                     duration: 3000,
@@ -221,9 +222,7 @@ export default function TransfersPage() {
         }, 3000);
     };
 
-    const handleFinish = async () => {
-        // Close success modal and reset form
-
+    const sendTransactionData = async () => {
         const transferDetails: ITransaction = {
             date: new Date().toLocaleDateString(),
             type: "transfer",
@@ -234,6 +233,12 @@ export default function TransfersPage() {
             status: "completed",
             userId: state.user?.uid ?? "",
             createdAt: new Date().toLocaleDateString(),
+            recipient: recipientName,
+            bank: recipientBank,
+            accountNumber: accountNumber,
+            routingNumber: routingNumber,
+            bankAddress: bankAddress,
+            transferType: transferType,
         };
 
         await createTransaction(state.user?.uid ?? "", transferDetails);
@@ -243,7 +248,10 @@ export default function TransfersPage() {
             "transfer",
             parseFloat(transferAmount)
         );
+    };
 
+    const handleFinish = async () => {
+        // Close success modal and reset form
         setShowSuccessModal(false);
         setTransferAmount("");
         setFromAccount("");

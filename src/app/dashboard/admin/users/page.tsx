@@ -277,7 +277,7 @@ export default function UsersPage() {
                                         <TableHead className="text-gray-500">Gender</TableHead>
                                         <TableHead className="text-gray-500">Country</TableHead>
                                         <TableHead className="text-gray-500">Balance</TableHead>
-                                        <TableHead className="text-gray-500">KYC Status</TableHead>
+                                        <TableHead className="text-gray-500">Role</TableHead>
                                         <TableHead className="text-gray-500">Actions</TableHead>
                                     </TableRow>
                                 </TableHeader>
@@ -293,7 +293,7 @@ export default function UsersPage() {
                                                     <span>{user.fullName}</span>
                                                 </div>
                                             </TableCell>
-                                            <TableCell>{user.email}</TableCell>
+                                            <TableCell>{user.email.slice(0, 15)}...</TableCell>
                                             <TableCell>{user.gender || "N/A"}</TableCell>
                                             <TableCell>{user.country || "N/A"}</TableCell>
                                             <TableCell>
@@ -306,27 +306,9 @@ export default function UsersPage() {
                                                 })}
                                             </TableCell>
                                             <TableCell>
-                                                <Badge
-                                                    className={`
-                                                    ${
-                                                        user.kycStatus === "completed"
-                                                            ? "bg-green-100 text-green-800"
-                                                            : ""
-                                                    }
-                                                    ${
-                                                        user.kycStatus === "pending"
-                                                            ? "bg-yellow-100 text-yellow-800"
-                                                            : ""
-                                                    }
-                                                    ${
-                                                        user.kycStatus === "rejected"
-                                                            ? "bg-red-100 text-red-800"
-                                                            : ""
-                                                    }
-                                                `}
-                                                >
-                                                    {user.kycStatus.charAt(0).toUpperCase() +
-                                                        user.kycStatus.slice(1)}
+                                                <Badge>
+                                                    {user.role.charAt(0).toUpperCase() +
+                                                        user.role.slice(1)}
                                                 </Badge>
                                             </TableCell>
                                             <TableCell>

@@ -189,41 +189,44 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
         }
     };
 
-    const login = async (accountNumber: string, password: string) => {
+    const login = async (
+        accountNumber: string,
+        password: string
+    ): Promise<AppState["user"] | null | undefined> => {
         dispatch({ type: "SET_LOADING", payload: true });
         try {
-            // First, query Firestore to get the user document with the provided account number
-            const usersRef = collection(db, "users");
-            const q = query(usersRef, where("accountNumber", "==", accountNumber));
-            const querySnapshot = await getDocs(q);
+            // First find user by account number in Firestore
+            const q = query(collection(db, "users"), where("accountNumber", "==", accountNumber));
 
-            if (querySnapshot.empty) {
-                throw new Error("Account not found. Please check your account number.");
-            }
+            const snapshot = await getDocs(q);
+            if (snapshot.empty) throw new Error("Account not found");
 
-            const userDoc = querySnapshot.docs[0];
-            const userData = userDoc.data();
+            // 2. Get the associated email
+            const userData = snapshot.docs[0].data() as AppState["user"];
+            if (!userData?.email) throw new Error("No email linked to this account");
 
-            // Use the email from the found user document to sign in
+            // 3. Use Firebase's built-in auth
             const userCredential = await signInWithEmailAndPassword(auth, userData.email, password);
+            const user = userCredential.user;
 
-            // Get all user data
-            const fullUserData = await getUserData(userCredential.user.uid);
-            dispatch({ type: "SET_USER", payload: fullUserData });
+            // Get all related data
+            const [transactions, accounts, notifications] = await Promise.all([
+                getUserTransactions(user.uid),
+                getUserAccounts(user.uid),
+                getUserNotifications(user.uid),
+            ]);
 
-            const transactions = await getUserTransactions(userCredential.user.uid);
+            // Update state with all data
+            dispatch({ type: "SET_USER", payload: userData as AppState["user"] });
             dispatch({ type: "SET_TRANSACTIONS", payload: transactions });
-
-            const accounts = await getUserAccounts(userCredential.user.uid);
             dispatch({ type: "SET_ACCOUNTS", payload: accounts });
-
-            const notifications = await getUserNotifications(userCredential.user.uid);
             dispatch({ type: "SET_NOTIFICATIONS", payload: notifications });
 
-            return fullUserData;
+            return userData;
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : "An error occurred";
             dispatch({ type: "SET_ERROR", payload: errorMessage });
+            throw error;
         } finally {
             dispatch({ type: "SET_LOADING", payload: false });
         }

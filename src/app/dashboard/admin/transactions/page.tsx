@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import {
-    ArrowUpDown,
     Download,
     Filter,
     Search,
@@ -70,7 +69,10 @@ export default function TransactionsPage() {
     const { adminState, getAllBankData, updateTransaction, deleteTransaction } = useAdmin();
 
     useEffect(() => {
-        const allTransactions = adminState.transactions;
+        const allTransactions = adminState.transactions.filter(
+            (transaction) => transaction.createdAt !== undefined
+        );
+        console.log(allTransactions);
         setTransactions(allTransactions as unknown as ITransaction[]);
     }, [adminState.transactions]);
 
@@ -175,6 +177,12 @@ export default function TransactionsPage() {
             toast.success("Transaction deleted successfully", {
                 duration: 3000,
                 position: "top-right",
+                style: {
+                    background: "#fff",
+                    color: "#008000",
+                    borderRadius: "10px",
+                    fontSize: "14px",
+                },
             });
         } catch (error) {
             toast.error("Failed to delete transaction");
@@ -319,14 +327,9 @@ export default function TransactionsPage() {
                                         </TableHead>
                                         <TableHead className="text-gray-500">fullName</TableHead>
                                         <TableHead className="text-gray-500">Type</TableHead>
+                                        <TableHead className="text-gray-500">Recipient</TableHead>
                                         <TableHead className="text-gray-500">Amount</TableHead>
                                         <TableHead className="text-gray-500">Status</TableHead>
-                                        <TableHead className="text-gray-500">
-                                            <div className="flex items-center">
-                                                Date
-                                                <ArrowUpDown className="ml-2 h-4 w-4" />
-                                            </div>
-                                        </TableHead>
                                         <TableHead className="text-right text-gray-500">
                                             Actions
                                         </TableHead>
@@ -343,7 +346,7 @@ export default function TransactionsPage() {
                                             }}
                                         >
                                             <TableCell className="font-medium">
-                                                {transaction.transactionId}
+                                                {transaction.transactionId.slice(0, 8)}...
                                             </TableCell>
                                             <TableCell>
                                                 <div className="flex items-center gap-2">
@@ -385,6 +388,7 @@ export default function TransactionsPage() {
                                                     minimumFractionDigits: 2,
                                                 })}
                                             </TableCell>
+                                            <TableCell>{transaction?.description}</TableCell>
                                             <TableCell>
                                                 <Badge
                                                     className={`
@@ -442,7 +446,7 @@ export default function TransactionsPage() {
                                                         onClick={(e) => {
                                                             e.stopPropagation();
                                                             handleDeleteTransaction(
-                                                                transaction.transactionId
+                                                                transaction.uid ?? ""
                                                             );
                                                         }}
                                                     >
