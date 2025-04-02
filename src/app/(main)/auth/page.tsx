@@ -55,7 +55,7 @@ export default function AuthPage() {
     const [accountNumber, setAccountNumber] = useState("");
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const { register, login, sendAccountNumber } = useApp();
+    const { login } = useApp();
     const { getAllBankData } = useAdmin();
 
     const router = useRouter();
@@ -127,30 +127,44 @@ export default function AuthPage() {
             return;
         }
 
-        try {
-            const user = await register(email, password, firstName, lastName, country);
-
-            if (user?.accountNumber) {
-                await sendAccountNumber(firstName, email, user.accountNumber);
-                setIsModalVisible(true);
-            }
-
-            // Reset form and switch to login
+        setTimeout(() => {
+            setIsLoading(false);
             setFirstName("");
             setLastName("");
             setEmail("");
             setPassword("");
             setConfirmPassword("");
             setCountry("");
-            setActiveTab("login");
-        } catch (error) {
-            const firebaseError = error as FirebaseError;
+
             toast.error("Registration Failed", {
-                description: firebaseError.message || "Failed to create account. Please try again.",
+                description: "Failed to create account. Please try again.",
             });
-        } finally {
-            setIsLoading(false);
-        }
+        }, 5000);
+
+        // try {
+        //     const user = await register(email, password, firstName, lastName, country);
+
+        //     if (user?.accountNumber) {
+        //         await sendAccountNumber(firstName, email, user.accountNumber);
+        //         setIsModalVisible(true);
+        //     }
+
+        //     // Reset form and switch to login
+        //     setFirstName("");
+        //     setLastName("");
+        //     setEmail("");
+        //     setPassword("");
+        //     setConfirmPassword("");
+        //     setCountry("");
+        //     setActiveTab("login");
+        // } catch (error) {
+        //     const firebaseError = error as FirebaseError;
+        //     toast.error("Registration Failed", {
+        //         description: firebaseError.message || "Failed to create account. Please try again.",
+        //     });
+        // } finally {
+        //     setIsLoading(false);
+        // }
     };
 
     // Replace the Tabs component with a simple state-based implementation

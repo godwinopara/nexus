@@ -30,7 +30,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Download, Eye, Pencil, Plus, RefreshCw, Search } from "lucide-react";
+import { Download, Eye, EyeOff, Pencil, Plus, RefreshCw, Search } from "lucide-react";
 import { useAdmin } from "@/context/AdminContext";
 import { IUser } from "../../user/types/type";
 import { useApp } from "@/context/AppContext";
@@ -38,6 +38,56 @@ import { toast } from "react-hot-toast";
 
 type UserStatus = "active" | "pending" | "suspended";
 type KYCStatus = "completed" | "pending" | "rejected";
+
+const countries = [
+    "United States",
+    "Canada",
+    "Mexico", // North America
+    "Brazil",
+    "Argentina",
+    "Colombia", // South America
+    "United Kingdom",
+    "Germany",
+    "France",
+    "Italy",
+    "Spain",
+    "Netherlands", // Europe
+    "Belgium",
+    "Sweden",
+    "Norway",
+    "Denmark",
+    "Finland",
+    "Ireland",
+    "Switzerland",
+    "Austria",
+    "Portugal",
+    "Greece",
+    "Poland",
+    "Czech Republic",
+    "Hungary",
+    "Romania",
+    "Bulgaria",
+    "Croatia",
+    "Slovakia",
+    "Slovenia",
+    "Estonia",
+    "Latvia",
+    "Lithuania",
+    "Luxembourg",
+    "Malta",
+    "Cyprus",
+    "Iceland",
+    "Liechtenstein",
+    "Monaco",
+    "San Marino",
+    "Andorra",
+    "Vatican City", // More Europe
+    "Australia",
+    "Japan",
+    "China",
+    "India", // Asia
+    // Add more countries as needed
+];
 
 export default function UsersPage() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -49,9 +99,20 @@ export default function UsersPage() {
     const [showEditDialog, setShowEditDialog] = useState(false);
     const [userList, setUserList] = useState<IUser[]>([]);
     const [isSaving, setIsSaving] = useState(false);
+    const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
+
+    //New Users State
+    const [showPassword, setShowPassword] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [country, setCountry] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const { adminState, getAllBankData } = useAdmin();
-    const { updateUserData } = useApp();
+    const { updateUserData, register, sendAccountNumber } = useApp();
 
     useEffect(() => {
         getAllBankData();
@@ -136,6 +197,60 @@ export default function UsersPage() {
         return totalBalance;
     };
 
+    const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsLoading(true);
+
+        // Validate passwords match
+        if (password !== confirmPassword) {
+            toast.error("Passwords Don't Match");
+            setIsLoading(false);
+
+            return;
+        }
+
+        try {
+            const user = await register(email, password, firstName, lastName, country);
+
+            if (user?.accountNumber) {
+                toast.success("User Created Successfully", {
+                    duration: 3000,
+                    style: {
+                        fontSize: "14px",
+                    },
+                });
+                setTimeout(() => {
+                    toast.promise(
+                        sendAccountNumber(firstName, email, user.accountNumber),
+                        {
+                            loading: "Sending Account Number",
+                            success: `Account Number Sent to ${email}`,
+                            error: "Error sending account number",
+                        },
+                        {
+                            style: {
+                                fontSize: "14px",
+                            },
+                        }
+                    );
+                }, 3000);
+            }
+
+            // Reset form
+            setFirstName("");
+            setLastName("");
+            setEmail("");
+            setPassword("");
+            setConfirmPassword("");
+            setCountry("");
+        } catch (error) {
+            console.log(error);
+            toast.error(`User Registration Failed`);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <div className="flex flex-1">
             {/* Main content */}
@@ -148,7 +263,10 @@ export default function UsersPage() {
                             </h1>
                             <p className="text-gray-500">View and manage user accounts</p>
                         </div>
-                        <Button className="bg-green-500 hover:bg-green-600 text-white">
+                        <Button
+                            onClick={() => setIsAddUserModalOpen(true)}
+                            className="bg-green-500 hover:bg-green-600 text-white"
+                        >
                             <Plus className="mr-2 h-4 w-4" />
                             Add User
                         </Button>
@@ -680,6 +798,151 @@ export default function UsersPage() {
                             )}
                         </Button>
                     </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            {/* Add User Dialog */}
+            <Dialog open={isAddUserModalOpen} onOpenChange={setIsAddUserModalOpen}>
+                <DialogContent className="">
+                    <DialogHeader>
+                        <DialogTitle>Create an account</DialogTitle>
+                        <DialogDescription>
+                            Enter your details to create your account
+                        </DialogDescription>
+                    </DialogHeader>
+
+                    <form onSubmit={handleSignup}>
+                        <div className="grid xl:grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                                <Label htmlFor="firstName">First Name</Label>
+                                <Input
+                                    id="firstName"
+                                    type="text"
+                                    required
+                                    className="border-gray-200"
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="lastName">Last Name</Label>
+                                <Input
+                                    id="lastName"
+                                    type="text"
+                                    required
+                                    className="border-gray-200"
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="grid xl:grid-cols-2 gap-4 my-3">
+                            <div className="space-y-2">
+                                <Label htmlFor="signup-email">Email</Label>
+                                <Input
+                                    id="signup-email"
+                                    type="email"
+                                    required
+                                    className="border-gray-200"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="country">Country</Label>
+                                <Select value={country} onValueChange={setCountry}>
+                                    <SelectTrigger className="border-gray-200 w-full h-11">
+                                        <SelectValue placeholder="Select your country" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {countries.map((country) => (
+                                            <SelectItem key={country} value={country}>
+                                                {country}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
+
+                        <div className="grid xl:grid-cols-2 gap-4 space-y-4">
+                            <div className="space-y-2">
+                                <Label htmlFor="signup-password">Password</Label>
+                                <div className="relative">
+                                    <Input
+                                        id="signup-password"
+                                        type={showPassword ? "text" : "password"}
+                                        required
+                                        className="border-gray-200 pr-10"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                    <Button
+                                        type="button"
+                                        variant="ghost"
+                                        size="icon"
+                                        className="absolute cursor-pointer right-0 top-0 h-full px-3 text-gray-400 hover:text-gray-600"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                    >
+                                        {showPassword ? (
+                                            <EyeOff className="h-4 w-4" />
+                                        ) : (
+                                            <Eye className="h-4 w-4" />
+                                        )}
+                                        <span className="sr-only">Toggle password visibility</span>
+                                    </Button>
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <Label htmlFor="confirm-password">Confirm Password</Label>
+                                <Input
+                                    id="confirm-password"
+                                    type={showPassword ? "text" : "password"}
+                                    required
+                                    className="border-gray-200"
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                />
+                            </div>
+                        </div>
+
+                        <DialogFooter>
+                            <Button
+                                type="submit"
+                                className="w-full h-[40px] cursor-pointer my-5 bg-green-500 hover:bg-green-600"
+                                disabled={isLoading}
+                            >
+                                {isLoading ? (
+                                    <span className="flex items-center">
+                                        <svg
+                                            className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <circle
+                                                className="opacity-25"
+                                                cx="12"
+                                                cy="12"
+                                                r="10"
+                                                stroke="currentColor"
+                                                strokeWidth="4"
+                                            ></circle>
+                                            <path
+                                                className="opacity-75"
+                                                fill="currentColor"
+                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                            ></path>
+                                        </svg>
+                                        Creating account...
+                                    </span>
+                                ) : (
+                                    "Create account"
+                                )}
+                            </Button>
+                        </DialogFooter>
+                    </form>
                 </DialogContent>
             </Dialog>
         </div>
