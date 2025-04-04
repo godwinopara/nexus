@@ -17,6 +17,7 @@ import {
     Users,
     FileText,
     HandCoins,
+    Building2,
     // Shield,
 } from "lucide-react";
 
@@ -112,9 +113,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className="flex min-h-screen bg-gray-50">
             {/* Sidebar (desktop only) */}
             <aside className="hidden w-64 flex-col border-r bg-white md:flex md:fixed md:inset-y-0 md:z-40">
-                <div className="flex h-16 items-center border-b px-6">
+                <div className="flex h-16 border-b px-8 items-center gap-2">
                     <Link href="/" className="flex items-center gap-2">
-                        <span className="font-bold text-green-600 text-xl">HSGB</span>
+                        <Building2 className="h-6 w-6 text-emerald-600" />
+                        <span className="text-xl text-emerald-600 font-bold">HSGB</span>
                     </Link>
                 </div>
                 <nav className="flex-1 space-y-3 px-3 py-4">

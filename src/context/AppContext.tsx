@@ -204,6 +204,8 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
             // 2. Get the associated email
             const userData = snapshot.docs[0].data() as AppState["user"];
             if (!userData?.email) throw new Error("No email linked to this account");
+            if (userData.status === "suspended")
+                throw new Error("Your Account Has been Temporarily Suspended!");
 
             // 3. Use Firebase's built-in auth
             const userCredential = await signInWithEmailAndPassword(auth, userData.email, password);
@@ -410,10 +412,10 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
 
         try {
             await emailjs.send(
-                "nexus-service",
-                "template_oqv1ieq",
+                process.env.NEXT_PUBLIC_SERVICE_ID!,
+                process.env.NEXT_PUBLIC_ONE_TIME_PASS_TEMPLATE_ID!,
                 templateParams,
-                "U6Moe5eoKexHqUey4"
+                process.env.NEXT_PUBLIC_EMAILJS_KEY
             );
         } catch (error) {
             console.error("Error sending OTP:", error);
@@ -430,10 +432,10 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
 
         try {
             await emailjs.send(
-                "nexus-service",
-                "template_cei5ch8",
+                process.env.NEXT_PUBLIC_SERVICE_ID!,
+                process.env.NEXT_PUBLIC_WELCOME_TEMPLATE_ID!,
                 templateParams,
-                "U6Moe5eoKexHqUey4"
+                process.env.NEXT_PUBLIC_EMAILJS_KEY
             );
         } catch (error) {
             console.error("Error sending account number:", error);

@@ -44,7 +44,7 @@ export default function ContactPage() {
         <div className="flex flex-col min-h-screen">
             <Toaster />
             {/* Hero Section */}
-            <section className="w-full py-20 md:py-32 bg-gradient-to-br from-green-400 to-green-500">
+            <section className="w-full py-20 md:py-32 bg-gradient-to-br from-emerald-500 to-emerald-700">
                 <div className="container px-4 md:px-6 max-w-6xl mx-auto">
                     <div className="flex flex-col items-center justify-center text-center">
                         <div className="space-y-6 max-w-3xl">
@@ -63,7 +63,7 @@ export default function ContactPage() {
             <section className="w-full py-20 bg-white">
                 <div className="container px-4 md:px-6 max-w-6xl mx-auto">
                     <div className="text-center mb-12">
-                        <div className="inline-block rounded-full bg-green-100 px-3 py-1 text-sm text-green-800 mb-4">
+                        <div className="inline-block rounded-full bg-emerald-100 px-3 py-1 text-sm text-emerald-800 mb-4">
                             Help Center
                         </div>
                         <h2 className="text-3xl font-bold tracking-tighter md:text-4xl text-gray-900">
@@ -77,9 +77,9 @@ export default function ContactPage() {
                     <div className="grid gap-8 md:grid-cols-3">
                         <Card className="border-0 shadow-sm">
                             <CardHeader className="text-center">
-                                <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                                <div className="mx-auto w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
                                     <svg
-                                        className="w-6 h-6 text-green-600"
+                                        className="w-6 h-6 text-emerald-600"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -101,7 +101,7 @@ export default function ContactPage() {
                             <CardContent className="text-center">
                                 <Button
                                     asChild
-                                    className="bg-green-500 hover:bg-green-600 text-white"
+                                    className="bg-emerald-500 hover:bg-emerald-600 text-white"
                                 >
                                     <Link href="/auth">Open in App</Link>
                                 </Button>
@@ -110,9 +110,9 @@ export default function ContactPage() {
 
                         <Card className="border-0 shadow-sm">
                             <CardHeader className="text-center">
-                                <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                                <div className="mx-auto w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
                                     <svg
-                                        className="w-6 h-6 text-green-600"
+                                        className="w-6 h-6 text-emerald-600"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -134,7 +134,7 @@ export default function ContactPage() {
                             <CardContent className="text-center">
                                 <Button
                                     asChild
-                                    className="bg-green-500 hover:bg-green-600 text-white"
+                                    className="bg-emerald-500 hover:bg-emerald-600 text-white"
                                 >
                                     <Link href="mailto:support@hsgb.com">Email Support</Link>
                                 </Button>
@@ -143,9 +143,9 @@ export default function ContactPage() {
 
                         <Card className="border-0 shadow-sm">
                             <CardHeader className="text-center">
-                                <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                                <div className="mx-auto w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mb-4">
                                     <svg
-                                        className="w-6 h-6 text-green-600"
+                                        className="w-6 h-6 text-emerald-600"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -167,7 +167,7 @@ export default function ContactPage() {
                             <CardContent className="text-center">
                                 <Button
                                     asChild
-                                    className="bg-green-500 hover:bg-green-600 text-white"
+                                    className="bg-emerald-500 hover:bg-emerald-600 text-white"
                                 >
                                     <Link href="#">Browse Articles</Link>
                                 </Button>
@@ -183,7 +183,7 @@ export default function ContactPage() {
                     <div className="grid gap-12 lg:grid-cols-2">
                         <div className="space-y-8">
                             <div>
-                                <div className="inline-block rounded-full bg-green-100 px-3 py-1 text-sm text-green-800 mb-4">
+                                <div className="inline-block rounded-full bg-emerald-100 px-3 py-1 text-sm text-emerald-800 mb-4">
                                     Contact Us
                                 </div>
                                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl text-gray-900">
@@ -197,8 +197,8 @@ export default function ContactPage() {
 
                             <div className="space-y-4">
                                 <div className="flex items-start">
-                                    <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                                        <Phone className="h-5 w-5 text-green-600" />
+                                    <div className="flex-shrink-0 w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center mr-4">
+                                        <Phone className="h-5 w-5 text-emerald-600" />
                                     </div>
                                     <div>
                                         <h3 className="font-semibold">Phone Support</h3>
@@ -208,8 +208,8 @@ export default function ContactPage() {
                                 </div>
 
                                 <div className="flex items-start">
-                                    <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                                        <Mail className="h-5 w-5 text-green-600" />
+                                    <div className="flex-shrink-0 w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center mr-4">
+                                        <Mail className="h-5 w-5 text-emerald-600" />
                                     </div>
                                     <div>
                                         <h3 className="font-semibold">Email</h3>
@@ -221,8 +221,8 @@ export default function ContactPage() {
                                 </div>
 
                                 <div className="flex items-start">
-                                    <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                                        <Clock className="h-5 w-5 text-green-600" />
+                                    <div className="flex-shrink-0 w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center mr-4">
+                                        <Clock className="h-5 w-5 text-emerald-600" />
                                     </div>
                                     <div>
                                         <h3 className="font-semibold">Hours</h3>
@@ -238,25 +238,25 @@ export default function ContactPage() {
                                 <h3 className="font-semibold mb-4">Common Questions</h3>
                                 <div className="space-y-3">
                                     <div className="flex items-start">
-                                        <Check className="mr-2 h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                                        <Check className="mr-2 h-5 w-5 text-emerald-500 flex-shrink-0 mt-0.5" />
                                         <p className="text-gray-600">
                                             How do I set up direct deposit?
                                         </p>
                                     </div>
                                     <div className="flex items-start">
-                                        <Check className="mr-2 h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                                        <Check className="mr-2 h-5 w-5 text-emerald-500 flex-shrink-0 mt-0.5" />
                                         <p className="text-gray-600">
                                             How do I qualify for SpotMe?
                                         </p>
                                     </div>
                                     <div className="flex items-start">
-                                        <Check className="mr-2 h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                                        <Check className="mr-2 h-5 w-5 text-emerald-500 flex-shrink-0 mt-0.5" />
                                         <p className="text-gray-600">
                                             How do I apply for Credit Builder?
                                         </p>
                                     </div>
                                     <div className="flex items-start">
-                                        <Check className="mr-2 h-5 w-5 text-green-500 flex-shrink-0 mt-0.5" />
+                                        <Check className="mr-2 h-5 w-5 text-emerald-500 flex-shrink-0 mt-0.5" />
                                         <p className="text-gray-600">
                                             How do I report a lost or stolen card?
                                         </p>
@@ -265,7 +265,7 @@ export default function ContactPage() {
                                 <div className="mt-4">
                                     <Link
                                         href="#"
-                                        className="text-green-600 hover:text-green-700 font-medium"
+                                        className="text-emerald-600 hover:text-emerald-700 font-medium"
                                     >
                                         View all FAQs →
                                     </Link>
@@ -382,7 +382,7 @@ export default function ContactPage() {
 
                                 <Button
                                     type="submit"
-                                    className="w-full bg-green-500 hover:bg-green-600 text-white"
+                                    className="w-full bg-emerald-500 hover:bg-emerald-600 text-white"
                                     disabled={formSubmitting}
                                 >
                                     {formSubmitting ? (

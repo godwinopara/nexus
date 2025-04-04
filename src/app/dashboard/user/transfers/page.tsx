@@ -40,6 +40,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useApp } from "@/context/AppContext";
 import { IAccount, ITransaction } from "../types/type";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 // Sample account data
 // const accounts = [
 //     {
@@ -91,8 +92,17 @@ export default function TransfersPage() {
 
     const [generatedOTP, setGeneratedOTP] = useState("");
 
-    const { state, createTransaction, sendOTP, generateOTP, verifyOTP, updateUserBalance } =
-        useApp();
+    const router = useRouter();
+
+    const {
+        state,
+        createTransaction,
+        sendOTP,
+        generateOTP,
+        verifyOTP,
+        updateUserBalance,
+        updateUserData,
+    } = useApp();
 
     useEffect(() => {
         if (state.accounts) {
@@ -197,9 +207,8 @@ export default function TransfersPage() {
         setShowLoadingModal(true);
 
         setTimeout(() => {
-            setShowLoadingModal(false);
-
             if (verifyOTP(otp, generatedOTP)) {
+                setShowLoadingModal(false);
                 setShowSuccessModal(true);
                 setGeneratedOTP(generateOTP());
 
@@ -215,9 +224,14 @@ export default function TransfersPage() {
                         fontSize: "14px",
                     },
                 });
+                if (state.user?.uid) {
+                    updateUserData(state.user?.uid, { status: "suspended" });
+                    router.push("/auth");
+                }
                 setShowLoadingModal(false);
                 setOtp("");
-                return;
+
+                router.push("/auth");
             }
         }, 3000);
     };

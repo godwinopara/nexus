@@ -7,7 +7,7 @@ export default function AboutPage() {
     return (
         <div className="flex flex-col min-h-screen">
             {/* Hero Section */}
-            <section className="w-full py-20 md:py-32 bg-green-500">
+            <section className="w-full py-20 md:py-32 bg-emerald-600">
                 <div className="container px-4 md:px-6 max-w-6xl mx-auto">
                     <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
                         <div className="flex flex-col justify-center space-y-8">
@@ -22,7 +22,7 @@ export default function AboutPage() {
                             </div>
                             <Button
                                 asChild
-                                className="w-fit bg-white text-green-600 hover:bg-gray-100"
+                                className="w-fit bg-white text-emerald-700 hover:bg-gray-100"
                             >
                                 <Link href="#mission">
                                     Learn more about who we are
@@ -108,7 +108,7 @@ export default function AboutPage() {
                         <div className="bg-white p-8 rounded-lg shadow-sm">
                             <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                                 <svg
-                                    className="w-6 h-6 text-green-600"
+                                    className="w-6 h-6 text-emerald-700"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -132,7 +132,7 @@ export default function AboutPage() {
                         <div className="bg-white p-8 rounded-lg shadow-sm">
                             <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                                 <svg
-                                    className="w-6 h-6 text-green-600"
+                                    className="w-6 h-6 text-emerald-700"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -156,7 +156,7 @@ export default function AboutPage() {
                         <div className="bg-white p-8 rounded-lg shadow-sm">
                             <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                                 <svg
-                                    className="w-6 h-6 text-green-600"
+                                    className="w-6 h-6 text-emerald-700"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -207,7 +207,7 @@ export default function AboutPage() {
                                 />
                             </div>
                             <h3 className="text-xl font-semibold">Alexandra Chen</h3>
-                            <p className="text-green-600 mb-2">Chief Executive Officer</p>
+                            <p className="text-emerald-700 mb-2">Chief Executive Officer</p>
                             <p className="text-gray-600 text-sm max-w-xs mx-auto">
                                 Former fintech executive with 15+ years of experience in digital
                                 banking transformation.
@@ -225,7 +225,7 @@ export default function AboutPage() {
                                 />
                             </div>
                             <h3 className="text-xl font-semibold">Marcus Johnson</h3>
-                            <p className="text-green-600 mb-2">Chief Technology Officer</p>
+                            <p className="text-emerald-700 mb-2">Chief Technology Officer</p>
                             <p className="text-gray-600 text-sm max-w-xs mx-auto">
                                 Tech innovator with a background in cybersecurity and financial
                                 systems architecture.
@@ -243,7 +243,7 @@ export default function AboutPage() {
                                 />
                             </div>
                             <h3 className="text-xl font-semibold">Sophia Rodriguez</h3>
-                            <p className="text-green-600 mb-2">Chief Financial Officer</p>
+                            <p className="text-emerald-700 mb-2">Chief Financial Officer</p>
                             <p className="text-gray-600 text-sm max-w-xs mx-auto">
                                 Seasoned financial strategist with experience at leading global
                                 banking institutions.
@@ -272,7 +272,7 @@ export default function AboutPage() {
                         <div className="bg-white p-8 rounded-lg shadow-sm">
                             <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                                 <svg
-                                    className="w-6 h-6 text-green-600"
+                                    className="w-6 h-6 text-emerald-700"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -296,7 +296,7 @@ export default function AboutPage() {
                         <div className="bg-white p-8 rounded-lg shadow-sm">
                             <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                                 <svg
-                                    className="w-6 h-6 text-green-600"
+                                    className="w-6 h-6 text-emerald-700"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -320,7 +320,7 @@ export default function AboutPage() {
                         <div className="bg-white p-8 rounded-lg shadow-sm">
                             <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                                 <svg
-                                    className="w-6 h-6 text-green-600"
+                                    className="w-6 h-6 text-emerald-700"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -344,7 +344,7 @@ export default function AboutPage() {
                         <div className="bg-white p-8 rounded-lg shadow-sm">
                             <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                                 <svg
-                                    className="w-6 h-6 text-green-600"
+                                    className="w-6 h-6 text-emerald-700"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -368,7 +368,7 @@ export default function AboutPage() {
                         <div className="bg-white p-8 rounded-lg shadow-sm">
                             <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                                 <svg
-                                    className="w-6 h-6 text-green-600"
+                                    className="w-6 h-6 text-emerald-700"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -392,7 +392,7 @@ export default function AboutPage() {
                         <div className="bg-white p-8 rounded-lg shadow-sm">
                             <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                                 <svg
-                                    className="w-6 h-6 text-green-600"
+                                    className="w-6 h-6 text-emerald-700"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -417,7 +417,7 @@ export default function AboutPage() {
             </section>
 
             {/* CTA Section */}
-            <section className="w-full py-20 bg-green-500">
+            <section className="w-full py-20 bg-emerald-600">
                 <div className="container px-4 md:px-6 max-w-6xl mx-auto text-center">
                     <h2 className="text-3xl font-bold tracking-tighter md:text-4xl text-white mb-6">
                         Join Our Banking Revolution
@@ -430,7 +430,7 @@ export default function AboutPage() {
                         <Button
                             asChild
                             size="lg"
-                            className="bg-white text-green-600 hover:bg-green-600 hover:text-white"
+                            className="bg-white text-emerald-700 hover:bg-emerald-700 hover:text-white"
                         >
                             <Link href="/auth">Open an Account</Link>
                         </Button>
@@ -438,7 +438,7 @@ export default function AboutPage() {
                             asChild
                             variant="outline"
                             size="lg"
-                            className="border-none text-green-600 hover:bg-green-600 hover:text-white"
+                            className="border-none text-emerald-700 hover:bg-emerald-700 hover:text-white"
                         >
                             <Link href="/contact">Contact Us</Link>
                         </Button>

@@ -231,9 +231,9 @@ export default function AuthPage() {
             <Dialog open={isVisible} onOpenChange={onClose}>
                 <DialogContent className="sm:max-w-[425px] bg-white rounded-2xl p-6 shadow-xl">
                     <DialogHeader className="space-y-4">
-                        <div className="mx-auto bg-green-100 rounded-full p-3 w-16 h-16 flex items-center justify-center">
+                        <div className="mx-auto bg-emerald-100 rounded-full p-3 w-16 h-16 flex items-center justify-center">
                             <svg
-                                className="w-8 h-8 text-green-600"
+                                className="w-8 h-8 text-emerald-600"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
@@ -256,7 +256,7 @@ export default function AuthPage() {
                             </span>
                             <span className="text-sm block bg-gray-50 p-4 rounded-lg border border-gray-100">
                                 We&apos;ve sent your account number to{" "}
-                                <span className="font-medium text-green-600">
+                                <span className="font-medium text-emerald-600">
                                     your email address
                                 </span>{" "}
                                 <br />
@@ -267,7 +267,7 @@ export default function AuthPage() {
                     <DialogFooter className="mt-6 sm:mt-8">
                         <Button
                             onClick={onClose}
-                            className="w-full cursor-pointer bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg transition-colors duration-200 font-medium"
+                            className="w-full cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-lg transition-colors duration-200 font-medium"
                         >
                             Got it, thanks!
                         </Button>
@@ -284,13 +284,12 @@ export default function AuthPage() {
                 isVisible={isModalVisible}
                 onClose={() => setIsModalVisible(false)}
             />
-            <div className="flex flex-col items-center justify-center w-full lg:w-1/2 p-8">
+            <div className="flex flex-col items-center justify-center w-full p-8">
                 <div className="mx-auto w-full max-w-md space-y-6">
                     <div className="space-y-2 text-center">
-                        <h1 className="text-3xl font-bold text-green-600">HSGB</h1>
-                        <p className="text-gray-500">
-                            Secure, simple, and smart banking at your fingertips
-                        </p>
+                        <h2 className="text-gray-500">
+                            Secure, simple, and financial solutions at your fingertips
+                        </h2>
                     </div>
 
                     <div className="w-full">
@@ -343,7 +342,7 @@ export default function AuthPage() {
                                                     <Label htmlFor="password">Password</Label>
                                                     <Link
                                                         href="#"
-                                                        className="text-sm text-green-600 hover:text-green-800"
+                                                        className="text-sm text-emerald-600 hover:text-emerald-800"
                                                     >
                                                         Forgot password?
                                                     </Link>
@@ -383,7 +382,7 @@ export default function AuthPage() {
                                         <CardFooter>
                                             <Button
                                                 type="submit"
-                                                className="w-full h-[40px] cursor-pointer my-5 bg-green-500 hover:bg-green-600"
+                                                className="w-full h-[40px] cursor-pointer my-5 bg-emerald-500 hover:bg-emerald-600"
                                                 disabled={isLoading}
                                             >
                                                 {isLoading ? (
@@ -541,7 +540,7 @@ export default function AuthPage() {
                                         <CardFooter>
                                             <Button
                                                 type="submit"
-                                                className="w-full h-[40px] cursor-pointer my-5 bg-green-500 hover:bg-green-600"
+                                                className="w-full h-[40px] cursor-pointer my-5 bg-emerald-500 hover:bg-emerald-600"
                                                 disabled={isLoading}
                                             >
                                                 {isLoading ? (
@@ -577,114 +576,6 @@ export default function AuthPage() {
                                 </Card>
                             </div>
                         )}
-                    </div>
-                </div>
-            </div>
-
-            <div className="hidden lg:block lg:w-1/2 bg-gradient-to-br from-green-400 to-green-500">
-                <div className="relative h-full w-full">
-                    <div className="absolute inset-0 bg-black/20 z-10"></div>
-                    <div className="absolute inset-0 flex flex-col justify-center p-12 z-20">
-                        <div className="max-w-md text-white">
-                            <h2 className="text-3xl font-bold mb-6">Banking Made Simple</h2>
-                            <ul className="space-y-4">
-                                <li className="flex items-start">
-                                    <div className="mr-2 rounded-full bg-white/20 p-1">
-                                        <svg
-                                            className="h-4 w-4"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <polyline points="20 6 9 17 4 12"></polyline>
-                                        </svg>
-                                    </div>
-                                    <span>Secure and encrypted banking platform</span>
-                                </li>
-                                <li className="flex items-start">
-                                    <div className="mr-2 rounded-full bg-white/20 p-1">
-                                        <svg
-                                            className="h-4 w-4"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <polyline points="20 6 9 17 4 12"></polyline>
-                                        </svg>
-                                    </div>
-                                    <span>24/7 access to your accounts</span>
-                                </li>
-                                <li className="flex items-start">
-                                    <div className="mr-2 rounded-full bg-white/20 p-1">
-                                        <svg
-                                            className="h-4 w-4"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <polyline points="20 6 9 17 4 12"></polyline>
-                                        </svg>
-                                    </div>
-                                    <span>Easy money transfers and bill payments</span>
-                                </li>
-                                <li className="flex items-start">
-                                    <div className="mr-2 rounded-full bg-white/20 p-1">
-                                        <svg
-                                            className="h-4 w-4"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <polyline points="20 6 9 17 4 12"></polyline>
-                                        </svg>
-                                    </div>
-                                    <span>Financial insights and budgeting tools</span>
-                                </li>
-                                <li className="flex items-start">
-                                    <div className="mr-2 rounded-full bg-white/20 p-1">
-                                        <svg
-                                            className="h-4 w-4"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <polyline points="20 6 9 17 4 12"></polyline>
-                                        </svg>
-                                    </div>
-                                    <span>Award-winning customer support</span>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -43,7 +43,7 @@ export default function AdminDashboard() {
     return (
         <div className="flex flex-1">
             {/* Main content */}
-            <main className="flex-1 overflow-auto p-4 md:p-6">
+            <main className="flex-1 p-4 md:p-6">
                 <div className="grid gap-6 max-w-6xl mx-auto">
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight text-gray-900">

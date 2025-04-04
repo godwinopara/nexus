@@ -88,25 +88,30 @@ export default function TransactionsPage() {
     };
 
     // Filter transactions based on search and filters
-    const filteredTransactions = transactions.filter((transaction) => {
-        // Search filter
-        const matchesSearch =
-            searchTerm === "" ||
-            transaction.transactionId.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            transaction.userId.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            transaction.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const filteredTransactions = transactions
+        .filter((transaction) => {
+            // Search filter
+            const matchesSearch =
+                searchTerm === "" ||
+                transaction.transactionId.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                transaction.userId.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                transaction.description.toLowerCase().includes(searchTerm.toLowerCase());
 
-        // Type filter
-        const matchesType = typeFilter === "all" || transaction.type === typeFilter;
+            // Type filter
+            const matchesType = typeFilter === "all" || transaction.type === typeFilter;
 
-        // Status filter
-        const matchesStatus = statusFilter === "all" || transaction.status === statusFilter;
+            // Status filter
+            const matchesStatus = statusFilter === "all" || transaction.status === statusFilter;
 
-        // Date filter (simplified for demo)
-        const matchesDate = true; // In a real app, we would filter by date
+            // Date filter (simplified for demo)
+            const matchesDate = true; // In a real app, we would filter by date
 
-        return matchesSearch && matchesType && matchesStatus && matchesDate;
-    });
+            return matchesSearch && matchesType && matchesStatus && matchesDate;
+        })
+        .sort((a, b) => {
+            // Use createdAt instead of date for more precise sorting
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        });
 
     const selectedTransactionData = transactions.find(
         (transaction) => transaction.transactionId === selectedTransaction

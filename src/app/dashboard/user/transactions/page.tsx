@@ -41,24 +41,31 @@ export default function TransactionsPage() {
     }, [state.transactions]);
 
     // Filter transactions based on search and filters
-    const filteredTransactions = transactions.filter((transaction) => {
-        // Search filter
-        const matchesSearch =
-            searchTerm === "" ||
-            transaction.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            transaction.amount.toString().includes(searchTerm);
+    const filteredTransactions = transactions
+        .filter((transaction) => {
+            // Search filter
+            const matchesSearch =
+                searchTerm === "" ||
+                transaction.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                transaction.amount.toString().includes(searchTerm);
 
-        // Account filter
-        const matchesAccount = selectedAccount === "all" || transaction.account === selectedAccount;
+            // Account filter
+            const matchesAccount =
+                selectedAccount === "all" || transaction.account === selectedAccount;
 
-        // Category filter
-        const matchesCategory = selectedCategory === "all" || transaction.type === selectedCategory;
+            // Category filter
+            const matchesCategory =
+                selectedCategory === "all" || transaction.type === selectedCategory;
 
-        // Time range filter (simplified for demo)
-        const matchesTimeRange = true;
+            // Time range filter (simplified for demo)
+            const matchesTimeRange = true;
 
-        return matchesSearch && matchesAccount && matchesCategory && matchesTimeRange;
-    });
+            return matchesSearch && matchesAccount && matchesCategory && matchesTimeRange;
+        })
+        .sort((a, b) => {
+            // Use createdAt instead of date for more precise sorting
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        });
 
     return (
         <div className="grid gap-6 max-w-6xl mx-auto">

@@ -10,9 +10,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-    title: "HSGB - Secure, Simple, Smart Banking",
-    description:
-        "Experience the future of banking with HSGB. Manage your finances, make payments, and grow your savings all in one place.",
+    title: "HSGB",
+    description: "Secure, Simple, Smart and Reliable",
 };
 
 export default function RootLayout({
