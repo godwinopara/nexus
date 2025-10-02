@@ -27,7 +27,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { toast } from "sonner";
 import {
     Dialog,
     DialogContent,
@@ -37,11 +36,6 @@ import {
     DialogFooter,
 } from "@/components/ui/dialog";
 import { useAdmin } from "@/context/AdminContext";
-
-interface FirebaseError {
-    message: string;
-    code?: string;
-}
 
 export default function AuthPage() {
     const [isLoading, setIsLoading] = useState(false);
@@ -54,6 +48,7 @@ export default function AuthPage() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [accountNumber, setAccountNumber] = useState("");
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [error, setError] = useState("");
 
     const { login } = useApp();
     const { getAllBankData } = useAdmin();
@@ -75,17 +70,6 @@ export default function AuthPage() {
                 };
                 localStorage.setItem("session", JSON.stringify(session));
 
-                toast.success("Login Successful", {
-                    description: `Welcome back, ${user.fullName}!`,
-                    position: "top-right",
-                    style: {
-                        background: "#fff",
-                        color: "#008000",
-                        borderRadius: "10px",
-                        fontSize: "14px",
-                    },
-                });
-
                 // Redirect based on role
                 if (user.role === "user") {
                     router.push("/dashboard/user");
@@ -97,18 +81,7 @@ export default function AuthPage() {
                 throw new Error("Invalid Account ID or Password. Please try again.");
             }
         } catch (error) {
-            const firebaseError = error as FirebaseError;
-            toast.error("Login Failed", {
-                description:
-                    firebaseError.message || "Invalid Account ID or Password. Please try again.",
-                position: "top-right",
-                style: {
-                    background: "#fff",
-                    color: "#bc1717",
-                    borderRadius: "10px",
-                    fontSize: "14px",
-                },
-            });
+            setError("Login Failed" + error);
         } finally {
             setIsLoading(false);
         }
@@ -116,55 +89,6 @@ export default function AuthPage() {
 
     const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setIsLoading(true);
-
-        // Validate passwords match
-        if (password !== confirmPassword) {
-            toast.error("Passwords Don't Match", {
-                description: "Please make sure your passwords match.",
-            });
-            setIsLoading(false);
-            return;
-        }
-
-        setTimeout(() => {
-            setIsLoading(false);
-            setFirstName("");
-            setLastName("");
-            setEmail("");
-            setPassword("");
-            setConfirmPassword("");
-            setCountry("");
-
-            toast.error("Registration Failed", {
-                description: "Failed to create account. Please try again.",
-            });
-        }, 5000);
-
-        // try {
-        //     const user = await register(email, password, firstName, lastName, country);
-
-        //     if (user?.accountNumber) {
-        //         await sendAccountNumber(firstName, email, user.accountNumber);
-        //         setIsModalVisible(true);
-        //     }
-
-        //     // Reset form and switch to login
-        //     setFirstName("");
-        //     setLastName("");
-        //     setEmail("");
-        //     setPassword("");
-        //     setConfirmPassword("");
-        //     setCountry("");
-        //     setActiveTab("login");
-        // } catch (error) {
-        //     const firebaseError = error as FirebaseError;
-        //     toast.error("Registration Failed", {
-        //         description: firebaseError.message || "Failed to create account. Please try again.",
-        //     });
-        // } finally {
-        //     setIsLoading(false);
-        // }
     };
 
     // Replace the Tabs component with a simple state-based implementation
@@ -311,9 +235,10 @@ export default function AuthPage() {
                                 Sign Up
                             </button>
                         </div>
+                        <div className="text-red-600 text-xs mt-4 mb-1">{error}</div>
 
                         {activeTab === "login" && (
-                            <div className="mt-4">
+                            <div>
                                 <Card className="border-0 shadow-sm">
                                     <CardHeader>
                                         <CardTitle>Welcome back</CardTitle>
@@ -420,7 +345,7 @@ export default function AuthPage() {
                         )}
 
                         {activeTab === "signup" && (
-                            <div className="mt-4">
+                            <div>
                                 <Card className="border-0 shadow-sm">
                                     <CardHeader>
                                         <CardTitle>Create an account</CardTitle>
