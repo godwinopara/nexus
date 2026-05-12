@@ -7,6 +7,7 @@ import { ArrowUpDown, Users, DollarSign, Activity, Pencil } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { DashboardTickerTape } from "@/components/dashboard-ticker-tape";
 import {
     Table,
     TableBody,
@@ -45,6 +46,8 @@ export default function UserDashboard() {
             {/* Main content */}
             <main className="flex-1 overflow-auto p-4 md:p-6">
                 <div className="grid gap-6 max-w-6xl mx-auto">
+                    <DashboardTickerTape />
+
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight text-gray-900">
                             Welcome back, {state.user?.fullName.split(" ")[0]}

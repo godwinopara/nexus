@@ -153,7 +153,7 @@ export default function UsersPage() {
             setEditingUser(null);
             toast.success("User information updated successfully", {
                 duration: 3000,
-                position: "top-right",
+                position: "top-center",
                 style: {
                     background: "#fff",
                     color: "#008000",

@@ -1,8 +1,9 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
-import { Lock, User } from "lucide-react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
+import { Camera, Lock, User } from "lucide-react";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -29,50 +30,97 @@ import toast from "react-hot-toast";
 export default function SettingsPage() {
   const [user, setUser] = useState<AppState["user"] | null>(null);
   const { state, updateUserData } = useApp();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   // State variables for form inputs
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
-  const [zipCode, setZipCode] = useState("");
   const [sortCode, setSortCode] = useState("");
   const [country, setCountry] = useState("");
   const [occupation, setOccupation] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [gender, setGender] = useState("");
+  const [profileImage, setProfileImage] = useState("");
 
   useEffect(() => {
     if (state.user) {
       setUser(state.user);
-      setFirstName(state.user.fullName.split(" ")[0]);
-      setLastName(state.user.fullName.split(" ")[1]);
+      const [first = "", ...rest] = state.user.fullName.split(" ");
+      setFirstName(first);
+      setLastName(rest.join(" "));
       setPhoneNumber(state.user.phoneNumber || "");
       setAddress(state.user.address || "");
-      setZipCode(state.user.sortcode || "");
       setSortCode(state.user.sortcode || "");
       setCountry(state.user.country || "");
       setOccupation(state.user.occupation || "");
       setDateOfBirth(state.user.dateOfBirth || "");
       setGender(state.user.gender || "");
+      setProfileImage(state.user.profileImage || "");
       // Initialize other fields if available in user data
     }
   }, [state.user]);
 
+  const getInitials = (fullName: string) => {
+    return fullName
+      .split(" ")
+      .filter(Boolean)
+      .map((name) => name.charAt(0))
+      .join("")
+      .slice(0, 2)
+      .toUpperCase();
+  };
+
+  const handleProfileImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please select a valid image file");
+      event.target.value = "";
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("Profile picture must be 2MB or smaller");
+      event.target.value = "";
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      if (typeof reader.result === "string") {
+        setProfileImage(reader.result);
+      }
+    };
+
+    reader.onerror = () => {
+      toast.error("Unable to read the selected image");
+    };
+
+    reader.readAsDataURL(file);
+    event.target.value = "";
+  };
+
   const handleSaveChanges = async () => {
     if (user) {
       const updatedData = {
-        fullName: `${firstName} ${lastName}`,
+        fullName: `${firstName} ${lastName}`.trim(),
         phoneNumber,
         address,
-        zipCode,
         accountNumber: state.user?.accountNumber,
         email: state.user?.email,
-        sortCode,
+        sortcode: sortCode,
         country,
         occupation,
         dateOfBirth,
         gender,
+        profileImage,
       };
       toast.promise(
         updateUserData(user.uid, updatedData),
@@ -89,7 +137,7 @@ export default function SettingsPage() {
           success: {
             duration: 4000,
           },
-          position: "top-right",
+          position: "top-center",
         }
       );
     }
@@ -124,7 +172,7 @@ export default function SettingsPage() {
           success: {
             duration: 4000,
           },
-          position: "top-right",
+          position: "top-center",
         }
       );
     }
@@ -155,16 +203,53 @@ export default function SettingsPage() {
               <CardDescription>Update your personal details</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center space-x-4">
-                <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center">
-                  <User className="h-10 w-10 text-gray-500" />
+              <div className="flex flex-col gap-4 rounded-2xl border border-gray-100 bg-gray-50/70 p-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="relative">
+                    <Avatar className="h-20 w-20 border-2 border-white shadow-sm">
+                      <AvatarImage src={profileImage} alt={state.user?.fullName || "User"} />
+                      <AvatarFallback className="bg-green-100 text-lg font-semibold text-green-700">
+                        {getInitials(state.user?.fullName || "") || <User className="h-8 w-8" />}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="absolute -bottom-1 -right-1 rounded-full bg-green-500 p-2 text-white shadow-md">
+                      <Camera className="h-3.5 w-3.5" />
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="font-medium text-gray-900">Profile Picture</p>
+                    <p className="text-sm text-gray-500">
+                      Upload a JPG, PNG, or WebP image up to 2MB.
+                    </p>
+                  </div>
                 </div>
-                <Button
-                  variant="outline"
-                  className="border-gray-200 hover:bg-gray-50 hover:border-gray-300"
-                >
-                  Change Avatar
-                </Button>
+                <div className="flex flex-wrap gap-2">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp,image/jpg"
+                    className="hidden"
+                    onChange={handleProfileImageChange}
+                  />
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="border-gray-200 hover:bg-gray-50 hover:border-gray-300"
+                    onClick={() => fileInputRef.current?.click()}
+                  >
+                    Change Avatar
+                  </Button>
+                  {profileImage ? (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="text-gray-600 hover:bg-gray-100"
+                      onClick={() => setProfileImage("")}
+                    >
+                      Remove
+                    </Button>
+                  ) : null}
+                </div>
               </div>
 
               <div className="grid gap-4 md:grid-cols-2">

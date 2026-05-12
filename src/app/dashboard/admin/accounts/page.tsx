@@ -77,7 +77,7 @@ export default function AccountsPage() {
             setShowEditDialog(false);
             setSelectedAccount(null);
             toast.success("Account balances updated successfully", {
-                position: "top-right",
+                position: "top-center",
                 style: {
                     background: "#fff",
                     color: "#008000",
@@ -87,7 +87,7 @@ export default function AccountsPage() {
             });
         } catch (error) {
             toast.error("Failed to update account balances", {
-                position: "top-right",
+                position: "top-center",
                 style: {
                     background: "#fff",
                     color: "#bc1717",

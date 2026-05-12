@@ -146,7 +146,7 @@ export default function TransactionsPage() {
             setEditingTransaction(null);
             toast.success("Transaction updated successfully", {
                 duration: 3000,
-                position: "top-right",
+                position: "top-center",
                 style: {
                     background: "#fff",
                     color: "#008000",
@@ -157,7 +157,7 @@ export default function TransactionsPage() {
         } catch (error) {
             toast.error("Failed to update transaction", {
                 duration: 3000,
-                position: "top-right",
+                position: "top-center",
                 style: {
                     background: "#fff",
                     color: "#bc1717",
@@ -181,7 +181,7 @@ export default function TransactionsPage() {
             setDeletingTransactionId(null);
             toast.success("Transaction deleted successfully", {
                 duration: 3000,
-                position: "top-right",
+                position: "top-center",
                 style: {
                     background: "#fff",
                     color: "#008000",

@@ -153,7 +153,7 @@ export default function TransfersPage() {
             if (parseFloat(transferAmount) < 1) {
                 toast.error("Transfer amount must be greater than $1", {
                     duration: 3000,
-                    position: "top-right",
+                    position: "top-center",
                     style: {
                         background: "#fff",
                         color: "#bc1717",
@@ -167,7 +167,7 @@ export default function TransfersPage() {
             if (!balance || balance < parseFloat(transferAmount)) {
                 toast.error("Insufficient balance", {
                     duration: 3000,
-                    position: "top-right",
+                    position: "top-center",
                     style: {
                         background: "#fff",
                         color: "#bc1717",
@@ -190,7 +190,7 @@ export default function TransfersPage() {
             sendOTP(state.user?.email, generatedOTP);
             toast.success("OTP sent to your email", {
                 duration: 3000,
-                position: "top-right",
+                position: "top-center",
                 style: {
                     background: "#fff",
                     color: "#008000",
@@ -216,7 +216,7 @@ export default function TransfersPage() {
             } else {
                 toast.error("Invalid OTP", {
                     duration: 3000,
-                    position: "top-right",
+                    position: "top-center",
                     style: {
                         background: "#fff",
                         color: "#bc1717",
@@ -668,7 +668,7 @@ export default function TransfersPage() {
                                                                 toast.success(
                                                                     "Routing number copied to clipboard",
                                                                     {
-                                                                        position: "top-right",
+                                                                        position: "top-center",
                                                                         style: {
                                                                             background: "#fff",
                                                                             color: "#008000",
@@ -706,7 +706,7 @@ export default function TransfersPage() {
                                                                 toast.success(
                                                                     "Account number copied to clipboard",
                                                                     {
-                                                                        position: "top-right",
+                                                                        position: "top-center",
                                                                         style: {
                                                                             background: "#fff",
                                                                             color: "#008000",

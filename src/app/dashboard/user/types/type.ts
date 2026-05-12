@@ -49,6 +49,7 @@ export interface IUser {
     occupation: string;
     dateOfBirth: string;
     gender: string;
+    profileImage?: string;
 }
 
 export interface AppState {

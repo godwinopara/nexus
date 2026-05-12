@@ -147,6 +147,7 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
                 occupation: "",
                 dateOfBirth: "",
                 gender: "",
+                profileImage: "",
             };
 
             const transactions: ITransaction[] = [];
